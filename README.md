@@ -27,7 +27,7 @@ Orbital Command is a high-fidelity, real-time satellite tracking and visualizati
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/orbital-command.git
+   git clone https://github.com/smarathe2024/orbital-command.git
    ```
 
 2. Install dependencies:
