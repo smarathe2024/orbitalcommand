@@ -1,20 +1,67 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 🛰️ Orbital Command
 
-# Run and deploy your AI Studio app
+Orbital Command is a high-fidelity, real-time satellite tracking and visualization platform. Built with React, Three.js, and Satellite.js, it provides a cinematic 3D environment to monitor global satellite networks, orbital paths, and mission-critical data.
 
-This contains everything you need to run your app locally.
+![Orbital Command Dashboard](https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&q=80&w=1200)
 
-View your app in AI Studio: https://ai.studio/apps/4a4e2562-428a-45d8-b456-b9c3a2e964ad
+## ✨ Features
 
-## Run Locally
+- **Real-Time Tracking**: Live propagation of satellite orbits using SGP4 algorithms and TLE data.
+- **Interactive 3D Globe**: A high-performance visualization of Earth with dynamic lighting and atmosphere.
+- **Orbital Trails**: Visual representation of the last 60 seconds of flight history for every tracked asset.
+- **Satellite Intelligence**: Detailed dossiers for each satellite, including frequency, mission description, and operational status.
+- **Communication Simulation**: Interactive terminal interface to simulate data downlinks and telemetry requests.
+- **Global Dashboard**: Real-time telemetry feed and network status overview.
+- **Modern UI**: A "Brutalist-Tech" aesthetic powered by Tailwind CSS and Framer Motion.
 
-**Prerequisites:**  Node.js
+## 🚀 Tech Stack
 
+- **Frontend**: React 19, TypeScript
+- **3D Engine**: [react-globe.gl](https://github.com/vasturiano/react-globe.gl), Three.js
+- **Orbital Mechanics**: [satellite.js](https://github.com/shashwatak/satellite.js)
+- **Animations**: Framer Motion
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 🛠️ Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/orbital-command.git
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 📖 Usage
+
+### Navigation
+- **Rotate**: Left-click and drag to rotate the globe.
+- **Zoom**: Use the scroll wheel to zoom in/out.
+- **Select**: Click on any satellite icon or label to open its detailed dossier.
+
+### Dashboard
+- **Telemetry Feed**: Monitor the live stream of orbital events in the bottom-left terminal.
+- **Network Status**: View the total count of active vs. inactive assets in the top-right status bar.
+- **Satellite Dossier**: Access technical specifications and available services (Telemetry, Downlink, Imaging) for selected satellites.
+
+## 📸 Screenshots
+
+| Global View | Satellite Dossier |
+| :---: | :---: |
+| ![Global View](https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600) | ![Dossier](https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&q=80&w=600) |
+
+## 🧪 Data Sources
+
+Satellite positions are calculated using Two-Line Element (TLE) sets. The simulation propagates these elements in real-time to provide accurate latitude, longitude, and altitude data.
+
+---
+
+Built with ❤️ for space enthusiasts and orbital engineers.
