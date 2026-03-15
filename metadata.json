@@ -1,0 +1,5 @@
+{
+  "name": "Orbital Command",
+  "description": "Real-time satellite tracking and communication interface with 3D globe visualization.",
+  "requestFramePermissions": []
+}
