@@ -164,6 +164,35 @@ const CommConsole = ({
     return () => clearInterval(interval);
   }, [service, satellite]);
 
+  const handleDownload = () => {
+    const data = {
+      timestamp: new Date().toISOString(),
+      satellite: {
+        name: satellite.name,
+        type: satellite.type,
+        status: satellite.status,
+        frequency: satellite.frequency
+      },
+      service: service,
+      logs: logs,
+      metadata: {
+        system: "ORBITAL-COMMAND-V1",
+        encryption: "AES-256-GCM-SIMULATED",
+        integrity: "SHA-256-SIMULATED"
+      }
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${satellite.name.replace(/\s+/g, '_')}_${service.replace(/\s+/g, '_')}_data.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <motion.div
       initial={{ scale: 0.9, opacity: 0 }}
@@ -220,7 +249,10 @@ const CommConsole = ({
           
           {!isProcessing && (
             <div className="flex gap-3 pt-2">
-              <button className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2">
+              <button 
+                onClick={handleDownload}
+                className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2"
+              >
                 <Download className="w-4 h-4" />
                 Download Result
               </button>
@@ -335,6 +367,16 @@ export default function App() {
   const [pathHistory, setPathHistory] = useState<Record<string, any[]>>({});
   const [currentTime, setCurrentTime] = useState(new Date());
   const [walkthroughStep, setWalkthroughStep] = useState<number | null>(null);
+  const [landData, setLandData] = useState<any[]>([]);
+
+  // Fetch land data
+  useEffect(() => {
+    fetch('https://raw.githubusercontent.com/vasturiano/react-globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson')
+      .then(res => res.json())
+      .then(countries => {
+        setLandData(countries.features);
+      });
+  }, []);
 
   const pathsData = useMemo(() => {
     return Object.entries(pathHistory)
@@ -484,8 +526,35 @@ export default function App() {
       <div className="absolute inset-0 z-0">
         <Globe
           ref={globeRef}
-          globeImageUrl="//unpkg.com/three-globe/example/img/earth-dark.jpg"
-          bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+          backgroundColor="rgba(0,0,0,0)"
+          showAtmosphere={true}
+          atmosphereColor="#1e3a8a"
+          atmosphereAltitude={0.15}
+          globeMaterial={new THREE.MeshPhongMaterial({
+            color: '#0a192f', // Very dark blue for water
+            emissive: '#000033',
+            emissiveIntensity: 0.1,
+            shininess: 0.7
+          })}
+          
+          /* Land Masses */
+          polygonsData={landData}
+          polygonCapColor={(d: any) => {
+            const name = d.properties.NAME || '';
+            const hash = name.split('').reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0);
+            const palette = [
+              '#1b2e1b', // Deep Green
+              '#2d3b1f', // Olive Brown
+              '#3d2b1f', // Dark Brown
+              '#2d4a2d', // Forest Green
+              '#4d3b2f'  // Light Earth
+            ];
+            return palette[hash % palette.length];
+          }}
+          polygonSideColor={() => 'rgba(0, 0, 0, 0)'}
+          polygonStrokeColor={() => '#2d3b1f'}
+          polygonAltitude={0.005}
+          
           backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
           
           /* Satellite Models */

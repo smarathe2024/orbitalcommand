@@ -27,7 +27,7 @@ Orbital Command is a high-fidelity, real-time satellite tracking and visualizati
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/smarathe2024/orbital-command.git
+   git clone https://github.com/your-username/orbital-command.git
    ```
 
 2. Install dependencies:
@@ -38,6 +38,31 @@ Orbital Command is a high-fidelity, real-time satellite tracking and visualizati
 3. Start the development server:
    ```bash
    npm run dev
+   ```
+
+## 🐳 Docker Deployment
+
+You can also run Orbital Command using Docker for a production-ready environment.
+
+### Using Docker Compose (Recommended)
+
+1. Build and start the container:
+   ```bash
+   docker-compose up -d --build
+   ```
+
+2. Access the application at `http://localhost:3000`.
+
+### Using Dockerfile Directly
+
+1. Build the image:
+   ```bash
+   docker build -t orbital-command .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run -d -p 3000:80 orbital-command
    ```
 
 ## 📖 Usage
